@@ -4,12 +4,10 @@ public class SinglyLinkedList {
 
     public SinglyLinkedList() {
         count = 0;
-        start = new LinkNode();
-        end = new LinkNode();
     }
 
-    public SinglyLinkedList(int count, LinkNode start, LinkNode end) {
-        this.count = count;
+    public SinglyLinkedList(LinkNode start, LinkNode end) {
+        count = 2;
         this.start = start;
         this.end = end;
     }
