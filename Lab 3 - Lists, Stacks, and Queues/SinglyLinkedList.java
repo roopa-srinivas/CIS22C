@@ -59,16 +59,6 @@ public class SinglyLinkedList {
                 newNode.setNextNode(currentNode);
                 previousNode.setNextNode(newNode);
             }
-            // if (previousNode == null) {
-            //     newNode.setNextNode(currentNode);
-            //     setStart(newNode);
-            // } else if (currentNode == null) {
-            //     previousNode.setNextNode(newNode);
-            //     setEnd(newNode);
-            // } else {
-            //     newNode.setNextNode(currentNode);
-            //     previousNode.setNextNode(newNode);
-            // }
         }
         count++;
     }
