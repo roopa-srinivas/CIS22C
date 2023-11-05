@@ -1,7 +1,7 @@
 public class lab3main {
     public static void main(String[] args) {
         System.out.println("Welcome to Kanchan Kaushik's and Roopa Srinivas' ADT demo! \n"
-            + "We will be demonstrating the use of a SinglyLinkedList, a Stack, and a Queue!"); 
+            + "We will be demonstrating the use of a SinglyLinkedList, a Stack, and a Queue!\n"); 
         Currency currencyList[] = new Currency[20];
 
         currencyList[0] = new Dollar(57.12);
@@ -37,7 +37,7 @@ public class lab3main {
 
 
         //Part B
-        System.out.println(linkedList.findCurrency(new Dollar(87.43)));
+        System.out.println(linkedList.findCurrency(new Dollar(87.43)) + "\n");
         System.out.println(linkedList.findCurrency(new Dollar(44.56)));
         
         //Part C
@@ -45,7 +45,7 @@ public class lab3main {
         linkedList.removeCurrency(2);
 
         //Part D
-        System.out.println(linkedList.printList());
+        System.out.println("\n"+linkedList.printList()+ "\n");
 
         //Part E
         for (int i = 8; i < 12; i++) {
@@ -57,7 +57,7 @@ public class lab3main {
         linkedList.removeCurrency(linkedList.countCurrency()/7);
 
         //Part G
-        System.out.println(linkedList.printList());
+        System.out.println(linkedList.printList() + "\n");
 
         //for stack
         //Part A
@@ -67,6 +67,7 @@ public class lab3main {
 
         //Part B
         stack.peek().print();
+        System.out.println();
 
         //Part C
         stack.pop();
@@ -75,6 +76,7 @@ public class lab3main {
 
         //Part D
         System.out.println(stack.printStack());
+        System.out.println();
 
         //Part E
         for (int i = 0; i < 5; i++) {
@@ -87,7 +89,7 @@ public class lab3main {
 
         //Part G
         System.out.println(stack.printStack());
-
+        System.out.println();
 
         //for queue
         //Part A
@@ -97,7 +99,9 @@ public class lab3main {
 
         //Part B
         queue.peekFront().print();
+        System.out.println();
         queue.peekRear().print();
+        System.out.println();
 
         //Part C
         queue.dequeue();
@@ -105,6 +109,7 @@ public class lab3main {
 
         //Part D
         System.out.println(queue.printQueue());
+        System.out.println();
 
         //Part E
         for (int i = 10; i < 15; i++) {
@@ -118,6 +123,7 @@ public class lab3main {
 
         //Part G
         System.out.println(queue.printQueue());
+        System.out.println();
 
         System.out.println("Thank you for attending our ADT demo! Have a nice day!"); 
         

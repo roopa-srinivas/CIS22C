@@ -38,7 +38,7 @@ public class Dollar extends Currency{
      * Return: none
      */
     public void print() {
-        super.print();
-        System.out.print(" " + getCurrencyName() + " ");
+        String temp = super.getCurrencyAsString();
+        System.out.println("$" + temp);
     }
 }

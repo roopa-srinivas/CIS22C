@@ -59,49 +59,35 @@ public class SinglyLinkedList {
     }
 
     public Currency removeCurrency(int currencyToRemoveIndex) {
-       /* LinkNode currentNode = getStart();
-        Currency temp = getNode(currencyToRemoveIndex).getData();
-        LinkNode previousNode;
-        if(count>0)
-        {
-            if(currencyToRemoveIndex ==0 && count>0)
-            {
-                if (currentNode.hasNext()) {
-                    currentNode = currentNode.getNext();
-                    setStart(currentNode);
-                } else {
-                    setStart(null);
-                    setEnd(null);
-                }
-            }
-            else if(currencyToRemoveIndex==count-1 && count>0)
-            {
-                previousNode = getNode(count-2);
-                previousNode.setNext(null);
-                setEnd(previousNode);
-            }
-            else
-            {
-                for (int i = 0; i < currencyToRemoveIndex; i++) {
-                    currentNode = currentNode.getNext();
-                }
-                previousNode = getNode(currencyToRemoveIndex-1);
-                previousNode.setNext(currentNode.getNext());
-            }
+		if(currencyToRemoveIndex == 0)
+		{
+			LinkNode currentNode = getStart();
+			setStart(getStart().getNext());
             count--;
-        }
-        return temp;
-        */
-
-        LinkNode currentNode = getStart();
-        if (currencyToRemoveIndex == 0) {
-            setStart(currentNode.getNext());
-        } else {
-            LinkNode previousNode = getNode(currencyToRemoveIndex - 1);
-            previousNode.setNext(currentNode.getNext());
-        }
-        count--;
-        return currentNode.getData(); 
+			return currentNode.getData();
+		}
+		else
+		{
+			LinkNode tmp = getStart();
+			int ind = 0;
+			while (ind<count && tmp.getNext() != null)
+			{
+				if(ind+1 == currencyToRemoveIndex)
+				{
+					LinkNode currentNode = tmp.getNext();
+					tmp.setNext(currentNode.getNext());
+                    count--;
+					return currentNode.getData();
+				}
+				else
+				{
+					tmp = tmp.getNext();
+					ind++;
+				}
+			}
+            count--;
+			return null;
+		} 
     }
 
     public int findCurrency(Currency currencyToFind) {
@@ -143,7 +129,7 @@ public class SinglyLinkedList {
         LinkNode currentNode = getStart();
         String returnList = "";
         while (currentNode!=null) {
-            returnList += currentNode.getData().getCurrencyAsString() + "\t"; 
+            returnList += "$" + currentNode.getData().getCurrencyAsString() + "\t"; 
             currentNode = currentNode.getNext();
         }
         return returnList; 

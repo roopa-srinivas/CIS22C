@@ -9,8 +9,7 @@ public class Queue extends SinglyLinkedList{
     }
 
     public Currency dequeue() {
-        LinkNode currentNode = getEnd();
-        return removeCurrency(currentNode.getData());
+        return removeCurrency(0);
     }
 
     public Currency peekFront() {
