@@ -119,13 +119,25 @@ public abstract class Currency {
      * Return: none
      */
     public void print() {
-        System.out.print(noteValue + ".");
+        System.out.print(getCurrencyAsString());
+    }
+
+     /** This is a method that returns the string of the whole and fractional parts of the Currency
+     * Pre: none
+     * Post: Currency's whole and fractional parts are turned into a string in traditional form (ex. 13.45 or 1.03)
+     * Return: String of the currency
+     */
+    public String getCurrencyAsString()
+    {
+        String temp = "";
+        temp+= noteValue + ".";
         if (coinValue == 0) {
-            System.out.print("00");
+            temp+= "00";
         } else if (coinValue < 10) {
-            System.out.print("0" + coinValue);
+            temp+= "0" + coinValue;
         } else {
-            System.out.print(coinValue);
+            temp+= coinValue;
         }
+        return temp;
     }
 }

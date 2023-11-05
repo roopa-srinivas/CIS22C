@@ -1,31 +1,31 @@
 public class LinkNode {
     private Currency data;
-    private LinkNode nextNode;
+    private LinkNode next;
 
     public LinkNode(Currency data) {
         this.data = data;
     }
 
-    public LinkNode(Currency data, LinkNode nextNode) {
+    public LinkNode(Currency data, LinkNode next) {
         this.data = data;
-        this.nextNode = nextNode;
+        this.next = next;
     }
 
     public Currency getData() {
         return data;
     }
-    public LinkNode getNextNode() {
-        return nextNode;
+    public LinkNode getNext() {
+        return next;
     }
 
     public void setData(Currency data) {
         this.data = data;
     }
-    public void setNextNode(LinkNode nextNode) {
-        this.nextNode = nextNode;
+    public void setNext(LinkNode next) {
+        this.next = next;
     }
 
-    public boolean hasNextNode() {
-        return getNextNode() != null;
+    public boolean hasNext() {
+        return getNext() != null;
     }
 }

@@ -1,31 +1,28 @@
 public class Queue extends SinglyLinkedList{
-    SinglyLinkedList queue = new SinglyLinkedList();
 
     public Queue() {
         super();
     }
 
     public void enqueue(Currency currencyToEnqueue) {
-        queue.addCurrency(currencyToEnqueue, getCount());
+        addCurrency(currencyToEnqueue, countCurrency());
     }
 
     public Currency dequeue() {
-        LinkNode currentNode = queue.getEnd();
-        return queue.removeCurrency(currentNode.getData());
+        LinkNode currentNode = getEnd();
+        return removeCurrency(currentNode.getData());
     }
 
     public Currency peekFront() {
-        LinkNode currentNode = queue.getStart();
-        return currentNode.getData();
+        return getStart().getData();
     }
 
-    public Currency peekBack() {
-        LinkNode currentNode = queue.getEnd();
-        return currentNode.getData();
+    public Currency peekRear() {
+        return getEnd().getData();
     }
 
     public String printQueue() {
-        return ""; //need to replace
+        return printList();
     }
 
     
