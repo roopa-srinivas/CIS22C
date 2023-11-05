@@ -1,3 +1,10 @@
+/*
+lab3 - Lists, Stacks and Queues
+Kanchan Kaushik and Roopa Srinivas
+F23 CIS D022C 09Y, 10Y Data Abstract & Structures
+Purpose: To demonstrate knowledge of ADT's using the above three mentioned 
+ADT's, Lists, Stacks, and Queues, on Currency and Dollar classes
+*/
 public class lab3main {
     public static void main(String[] args) {
         System.out.println("Welcome to Kanchan Kaushik's and Roopa Srinivas' ADT demo! \n"
@@ -126,6 +133,5 @@ public class lab3main {
         System.out.println();
 
         System.out.println("Thank you for attending our ADT demo! Have a nice day!"); 
-        
     }
 }
