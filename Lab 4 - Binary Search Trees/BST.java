@@ -2,7 +2,7 @@ public class BST {
     private BSTNode root;		// the root of the tree
 
     /**	constructor for BinaryTree */
-	public BinaryTree() 
+	public BST() 
 	{
 		root = null;
 	}
@@ -37,7 +37,7 @@ public class BST {
 		{
 			if(curr.getLeftChild()==null)
 			{
-				curr.setLeft(new BSTNode(value));
+				curr.setLeftChild(new BSTNode(value));
 				return;
 			}
 			else
@@ -47,7 +47,7 @@ public class BST {
 		{
 			if(curr.getRightChild()==null)
 			{
-				curr.setRight(new BSTNode(value));
+				curr.setRightChild(new BSTNode(value));
 				return;
 			}
 			else
@@ -74,7 +74,7 @@ public class BST {
 		if(node == null)
 			return null;
 		if(value.isGreater(node.getData()))
-			node.setLeft(remove(node.getLeftChild(),value));
+			node.setLeftChild(remove(node.getLeftChild(),value));
         else if(value.isEqual(node.getData()))
 		{
 			if(node.getLeftChild()==null)
@@ -85,10 +85,10 @@ public class BST {
 			BSTNode minimum = minNode(node.getRightChild());
 			BSTNode temp = new BSTNode(minimum.getData(), node.getLeftChild(), node.getRightChild());
 			node = temp;
-			node.setRight(remove(node.getRightChild(), minimum.getData())) ;
+			node.setRightChild(remove(node.getRightChild(), minimum.getData())) ;
 		}
 		else
-			node.setRight(remove(node.getRightChild(),value));
+			node.setRightChild(remove(node.getRightChild(),value));
 		
 		return node;
 	}
@@ -132,8 +132,8 @@ public class BST {
         if (level == 1)
             breadthfirstVals.enqueue(curr.getData());
         else if (level > 1) {
-            traverseCurrentLevel(curr.getLeftChild(), level - 1);
-            traverseCurrentLevel(curr.getRightChild(), level - 1);
+            traverseCurrentLevel(curr.getLeftChild(), level - 1, breadthfirstVals);
+            traverseCurrentLevel(curr.getRightChild(), level - 1, breadthfirstVals);
         }
     }
 
@@ -154,12 +154,12 @@ public class BST {
 	public void recurseInorder(BSTNode curr, Queue inorderVals)
 	{
 		if(curr.getLeftChild()!= null)
-			traverseInorder(curr.getLeftChild(), inorderVals);
+			recurseInorder(curr.getLeftChild(), inorderVals);
 		
 		inorderVals.enqueue(curr.getData());
 
 		if(curr.getRightChild()!= null)
-			traverseInorder(curr.getRightChild(), inorderVals);
+			recurseInorder(curr.getRightChild(), inorderVals);
 	}
 
 	/**
@@ -180,10 +180,10 @@ public class BST {
 		preorderVals.enqueue(curr.getData());
 
 		if(curr.getLeftChild()!= null)
-			recursePreorder(curr.getLeftChild());
+			recursePreorder(curr.getLeftChild(), preorderVals);
 
 		if(curr.getRightChild()!= null)
-			recursePreorder(curr.getRightChild());
+			recursePreorder(curr.getRightChild(), preorderVals);
 	}
 
 	/**
@@ -203,10 +203,10 @@ public class BST {
 	public void recursePostorder(BSTNode curr, Queue postorderVals)
 	{
 		if(curr.getLeftChild()!= null)
-			recursePostorder(curr.getLeftChild());
+			recursePostorder(curr.getLeftChild(), postorderVals);
 
 		if(curr.getRightChild()!= null)
-			recursePostorder(curr.getRightChild());
+			recursePostorder(curr.getRightChild(), postorderVals);
 
 		postorderVals.enqueue(curr.getData());
 	}
@@ -214,18 +214,18 @@ public class BST {
 	
 	public BSTNode search(Dollar key) 
 	{
-		recurseSearch(root, key);
+		return recurseSearch(root, key);
 	}
 
 	public BSTNode recurseSearch(BSTNode curr, Dollar key)
 	{
         if (curr == null || curr.getData().isEqual(key))
-            return root;
+            return curr;
  
         if (curr.getData().isGreater(key))
-            return search(curr.getRightChild(), key);
+            return recurseSearch(curr.getRightChild(), key);
 		else
-        	return search(curr.getLeftChild(), key);
+        	return recurseSearch(curr.getLeftChild(), key);
 	}
 
 	public String print()
@@ -239,7 +239,7 @@ public class BST {
 		Queue postorderVals = new Queue();
 		traversePostorder(postorderVals);
 		String printout = "";
-		printout += "Breadth-first Order: \n" + breadthfirstVals.printQueue() + "\n\n";
+		printout += "\n\nBreadth-first Order: \n" + breadthfirstVals.printQueue() + "\n\n";
 		printout += "In-order: \n" + inorderVals.printQueue() + "\n\n";
 		printout += "Pre-order: \n" + preorderVals.printQueue() + "\n\n";
 		printout += "Post-order: \n" + postorderVals.printQueue() + "\n\n";
@@ -258,7 +258,7 @@ public class BST {
 			return 0;
 	}
 
-	public boolean isEmpty();
+	public boolean isEmpty()
 	{
 		if(root==null)
 			return true;
