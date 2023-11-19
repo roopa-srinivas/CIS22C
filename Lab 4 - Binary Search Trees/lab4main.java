@@ -171,6 +171,5 @@ public class lab4main {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        
     }
 }
