@@ -2,8 +2,8 @@
 Queue - a class that extends SinglyLinkedlist, represents a FIFO ADT
 Kanchan Kaushik and Roopa Srinivas
 F23 CIS D022C 09Y, 10Y Data Abstract & Structures
-Purpose: To demonstrate knowledge of ADT's using the above three mentioned 
-ADT's, Lists, Stacks, and Queues, on Currency and Dollar classes
+Purpose: To demonstrate knowledge of ADTs using the Binary Search 
+Tree on Currency and Dollar classes
 */
 public class Queue extends SinglyLinkedList{
 

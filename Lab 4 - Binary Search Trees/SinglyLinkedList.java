@@ -3,8 +3,8 @@ SinglyLinkedList - a class that represents a list ADT, with each node referencin
 the node next to it (It can only be traversed in one direction)
 Kanchan Kaushik and Roopa Srinivas
 F23 CIS D022C 09Y, 10Y Data Abstract & Structures
-Purpose: To demonstrate knowledge of ADT's using the above three mentioned 
-ADT's, Lists, Stacks, and Queues, on Currency and Dollar classes
+Purpose: To demonstrate knowledge of ADTs using the Binary Search 
+Tree on Currency and Dollar classes
 */
 public class SinglyLinkedList {
     private int count; // field variable represents current length of list

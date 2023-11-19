@@ -1,8 +1,10 @@
 /*
-BST - a class that represents a binary search tree ADT that can be traversed in 4 different ways
+BST - a class that represents a binary search tree ADT of Dollar 
+objects that can be traversed in 4 different ways
 Kanchan Kaushik and Roopa Srinivas
 F23 CIS D022C 09Y, 10Y Data Abstract & Structures
-Purpose: To demonstrate knowledge of ADTs using the Binary Search Tree on Currency and Dollar classes
+Purpose: To demonstrate knowledge of ADTs using the Binary Search 
+Tree on Currency and Dollar classes
 */
 public class BST {
     private BSTNode root;		// the root of the tree
@@ -13,10 +15,11 @@ public class BST {
 		root = null;
 	}
 	/**
-	 * Add a node to the tree
-	 * pre: value (value to put into the tree)
+	 * Add a node to the tree by calling a recursive 
+	 * method to traverse the tree and appropriately add the node
+	 * pre: Dollar value (value to put into the tree)
 	 * post: value has been added to tree
-	 * returnL none
+	 * return: none
 	 */
 	public void insert(Dollar value) 
 	{
@@ -33,11 +36,17 @@ public class BST {
 	}
 
 	/**
-	 * Recursive helper method called for recursive version of add
-	 *  Each time called, checks if value greater than or less than current 
-	 *  value. Based on this, goes down right or left subtree. If corresponding
-	 *  right/left node is null, adds value at that point.
-	 * pre: value (value to add), curr (current node in binary tree)
+	 * Recursive helper method called for recursively adding a value to tree
+	 *
+	 * Algorithm recursiveAdd(value, curr)
+	 * 		if current data is greater than value to be added
+	 * 			if there is no left subtree, value is added there
+	 *			if there is a left subtree, recursively goes down it 
+	 *		else, if current data is less than value to be added
+	 *			if there is no right subtree, value is added there
+	 *			if there is a right subtree, recursively goes down it
+	 *
+	 * pre: Dollar value (value to add), BSTNode curr (current node in binary tree)
 	 * post: value is added in appropriate location on tree
 	 * return: none
 	 */
@@ -66,8 +75,9 @@ public class BST {
 	}
 
 	/**
-	 * Remove value from Binary Tree
-	 * pre: value (value to remove from the tree)
+	 * Remove value from Binary Tree by calling a recursive 
+	 * method to traverse the tree and appropriately remove node
+	 * pre: Dollar value (value to remove from the tree)
 	 * post: value removed from tree
 	 * return: none
 	 */
@@ -76,10 +86,29 @@ public class BST {
 	}
 
 	/**
-	 * remove value from Binary Tree
-	 * pre: node (root of the subtree), value (value to remove from the subtree)
-	 * post: value removed from tree
-	 * return: removed value
+	 * Recursive helper method called for recursively removing a value from tree
+	 * 
+	 * Algorithm remove(node, value)
+	 * 		if node is null
+	 *			return null
+	 * 		if node's data is greater than value
+	 *			set the left child of node ot be returned value of remove(leftChild of node, value)
+	 * 		else if nodes data is equal to value
+	 *			if node's left child is null
+	 * 				return node's right child
+	 * 			else if node's right child is null
+	 * 				return node's left child
+	 * 			find minimum BSTNode, calling minNode(node's right child)
+	 * 			temp BSTNode is a new BSTNode (minimum's data value, node's leftChild, node's rightChild)
+	 * 			set node to temp BSTNode
+	 * 			set node's right child to be returned value of remove(rightChild of node, minimum's data)
+	 * 		else
+	 * 			set right child of node to returned value of remove(rightChild of node, value)
+	 * 		return node
+	 *
+	 * pre: BSTNode node (root of the subtree), Dollar value (value to remove from the subtree)
+	 * post: value has been removed from tree
+	 * return: BSTNode containing removed Dollar value
 	 */
 	public BSTNode remove(BSTNode node, Dollar value) {
 		if(node == null)
@@ -105,10 +134,11 @@ public class BST {
 	}
 
 	/**
-	 * find node with minimum value in tree
-	 * pre: n (root of subtree)
+	 * finds node with minimum value in tree by iteratively 
+	 * going down left subtrees until there is none left to go down
+	 * pre: BSTNode n (root of subtree)
 	 * post: none
-	 * return: node with minimum value
+	 * return: BSTNode with minimum value
 	 */
 	public BSTNode minNode(BSTNode n)
 	{
@@ -119,9 +149,9 @@ public class BST {
 	}
 
 	/**
-	 * traverses tree breadth first
-	 * pre: breadthfirstVals (queue of tree values to be traversed)
-	 * post: tree has been traversed breadth first
+	 * traverses tree breadth first by calling a recursive traverse method
+	 * pre: Queue breadthfirstVals (queue to add traversed values to)
+	 * post: breadthfirstVals contains values in breadthfirst order
 	 * return: none
 	 */
 	public void traverseBreadthFirst(Queue breadthfirstVals)
@@ -132,39 +162,37 @@ public class BST {
     }
  
 	/**
-	 * gets height of tree
-	 * pre: curr (current node)
+	 * gets height of tree recursively by getting heights of 
+	 * the right and left subtrees
+	 * pre: BSTNode curr (current node)
 	 * post: none
-	 * return: height of tree
+	 * return: int height of tree
 	 */
     public int getTreeHeight(BSTNode curr)
     {
         if (curr == null)
             return 0;
         else {
-            int lheight = getTreeHeight(curr.getLeftChild());
-            int rheight = getTreeHeight(curr.getRightChild());
+            int leftheight = getTreeHeight(curr.getLeftChild());
+            int rightheight = getTreeHeight(curr.getRightChild());
  
-			return Math.max(lheight,rheight) + 1;
+			return Math.max(leftheight,rightheight) + 1;
         }
     }
  
-	/**
-	 * Algorithm traverseCurrentLevel(curr, level, breadthfirstVals){
-	 * 		if (curr == null) {
+	/** Recursive helper method called for recursively traversing the tree breadth first
+	 * 
+	 * Algorithm traverseCurrentLevel(curr, level, breadthfirstVals)
+	 * 		if curr is null
 	 * 			return
-	 * 		}
-	 * 		if (level = 1) {
+	 * 		else if level is 1
 	 * 			add value of curr to breadthfirstVals queue
-	 * 		}
-	 * 		else if (level > 1) {
-	 * 			traverseCurrentLevel(leftChild of curr, level-1, breadthfirstVals)
-	 * 			traverseCurrentLevel(rightChild of curr, level-1, breadthfirstVals)
-	 * 		}
-     * }
+	 * 		else if level is larger than 1
+	 * 			call traverseCurrentLevel(leftChild of curr, level-1, breadthfirstVals)
+	 * 			call traverseCurrentLevel(rightChild of curr, level-1, breadthfirstVals)
 	 * 
 	 * recursively traverses current level of tree
-	 * pre: curr (current BSTNode), level (level that is being traversed), breadthfirstVals (queue of values being traversed)
+	 * pre: BSTNode curr (current BSTNode), int level (level that is being traversed), Queue breadthfirstVals (queue of values being traversed)
 	 * post: current level has been traversed
 	 * return: none
 	 */
@@ -172,7 +200,7 @@ public class BST {
     {
         if (curr == null)
             return;
-        if (level == 1)
+        else if (level == 1)
             breadthfirstVals.enqueue(curr.getData());
         else if (level > 1) {
             traverseCurrentLevel(curr.getLeftChild(), level - 1, breadthfirstVals);
@@ -181,8 +209,8 @@ public class BST {
     }
 
 	/**
-	 * traverses tree inorder
-	 * pre: inorderVals (queue of values in inorder)
+	 * traverses tree inorder by calling method to recursively traverse inorder
+	 * pre: Queue inorderVals (queue to add traversed values to)
 	 * post: inorderVals has values in inorder
 	 * return: none
 	 */
@@ -191,20 +219,19 @@ public class BST {
 		recurseInorder(root, inorderVals);
 	}
 
-	/**
-	 * Algorithm recurseInorder(curr, inorderVals){
-	 * 		if (leftChild of curr != null) {
-	 * 			recurseInorder(leftChild of curr, inorderVals)
-	 * 		}
+	/** Recursive helper method called for recursively traversing the tree inorder
+	 * and adds the numbers of the binary tree to a queue of values, inorder
+	 *
+	 * Algorithm recurseInorder(curr, inorderVals)
+	 * 		if leftChild of curr is not null
+	 * 			call recurseInorder(leftChild of curr, inorderVals)
+	 *
 	 * 		add value of curr to inorder Queue
-	 * 		if (rightChild of curr != null) {
-	 * 			recurseInorder(rightChild of curr, inorderVals)
-	 * 		}
-     * }
+	 *
+	 * 		if rightChild of curr is not null
+	 * 			call recurseInorder(rightChild of curr, inorderVals)
 	 * 
-	 * Recursively adds the numbers of the binary tree to 
-	 * a queue of values inorder
-	 * pre: curr (current node), inorderVals (queue to add to)
+	 * pre: BSTNode curr (current node), Queue inorderVals (queue to add to)
 	 * post: indorderVals has all values inorder
 	 * return: none
 	 */
@@ -220,8 +247,8 @@ public class BST {
 	}
 
 	/**
-	 * traverses tree preorder
-	 * pre: preorderVals (queue of values in preorder)
+	 * traverses tree preorder by calling a method to recursively traverse preorder
+	 * pre: Queue preorderVals (queue to add traversed values to)
 	 * post: preorderVals has values in preorder
 	 * return: none
 	 */
@@ -230,22 +257,20 @@ public class BST {
 		recursePreorder(root, preorderVals);
 	}
 
-	/** 
-	 * Algorithm recursePreorder(curr, preorderVals){
-	 * 		add value of curr to preorder Queue
-	 * 
-	 * 		if (leftChild of curr != null) {
-	 * 			recursePreorder(leftChild of curr, preorderVals)
-	 * 		}
-	 * 		if (rightChild of curr != null) {
-	 * 			recursePreorder(rightChild of curr, preOrderVals)
-	 * 		}
-     * }
-	 * 
+	/** Recursive helper method called to recursively traverse tree in preorder
 	 * Recursively prints node, goes down left subtree 
 	 * until reaches a null node, then goes down 
 	 * right subtree until reaches null node.
-	 * pre: curr (current tree node), preorderVals (queue to add to)
+	 *
+	 * Algorithm recursePreorder(curr, preorderVals)
+	 * 		add value of curr to preorder Queue
+	 * 
+	 * 		if leftChild of curr is not null
+	 * 			call recursePreorder(leftChild of curr, preorderVals)
+	 * 		if rightChild of curr is not null
+	 * 			call recursePreorder(rightChild of curr, preOrderVals)
+	 * 
+	 * pre: BSTNode curr (current tree node), Queue preorderVals (queue to add to)
 	 * post: preorderVals has all values in preorder
 	 * return: none
 	 */
@@ -261,8 +286,8 @@ public class BST {
 	}
 
 	/**
-	 * traverses tree postorder
-	 * pre: postorderVals (queue of values in postorder)
+	 * traverses tree postorder by calling a method to recursivley traverse in postorder
+	 * pre: Queue postorderVals (queue to add traversed values to)
 	 * post: postorderVals has values in postorder
 	 * return: none
 	 */
@@ -271,21 +296,20 @@ public class BST {
 		recursePostorder(root, postorderVals);
 	}
 
-	/** 
-	 * Algorithm recursePostorder(curr, postorderVals){
-	 * 		if (leftChild of curr != null) {
-	 * 			recursePostorder(leftChild of curr, postorderVals)
-	 * 		}
-	 * 		if (rightChild of curr != null) {
-	 * 			recursePostorder(rightChild of curr, postOrderVals)
-	 * 		}
-	 * 		add value of curr to postorder Queue
-     * }
-	 * 
+	/** Recursive helper method called to recursively traverse tree in postorder
 	 * Recursively goes down left subtree 
 	 * until reaches a null node, then goes down 
 	 * right subtree until reaches null node, then prints node
-	 * pre: curr (current tree node), postorderVals (queue to add to)
+	 *
+	 * Algorithm recursePostorder(curr, postorderVals)
+	 * 		if leftChild of curr is not null
+	 * 			call recursePostorder(leftChild of curr, postorderVals)
+	 * 		if rightChild of curr is not null
+	 * 			call recursePostorder(rightChild of curr, postOrderVals)
+	 *
+	 * 		add value of curr to postorder Queue
+	 * 
+	 * pre: BSTNode curr (current tree node), Queue postorderVals (queue to add to)
 	 * post: postorderVals has all values in postorder
 	 * return: none
 	 */
@@ -301,33 +325,31 @@ public class BST {
 	}
 
 	/**
-	 * searches through tree to find certain value
-	 * pre: key (Dollar object to find in tree)
+	 * searches through tree to find certain value by calling a recursive
+	 * search method
+	 * pre: Dollar key (Dollar object to find in tree)
 	 * post: key found or not found
-	 * return: BSTNode that matches key
+	 * return: BSTNode that matches key (is null if not found)
 	 */
 	public BSTNode search(Dollar key) 
 	{
 		return recurseSearch(root, key);
 	}
 
-	/**
-	 * Algorithm recurseSearch(curr, key){
-	 * 		if (curr is null OR value of curr is equal to value of key) {
+	/** Recursive helper method to recursively search tree for a value, key
+	 *
+	 * Algorithm recurseSearch(curr, key)
+	 * 		if curr is null OR value of curr is equal to value of key)
 	 * 			return curr
-	 * 		}
-	 * 		if (value of curr is greater than key) {
+	 * 		if value of key is greater than curr
 	 * 			return recurseSearch(rightChild of curr, key)
-	 * 		}
-	 * 		else {
+	 * 		else
 	 * 			return recurseSearch(leftChild of curr, key)
-	 * 		}
      * }
 	 * 
-	 * recursively searches through tree to find key
-	 * pre: curr (current node), key (Dollar object to be found)
+	 * pre: BSTNode curr (current node), Dollar key (Dollar object to be found)
 	 * post: none
-	 * return: null (if not found) or non null value of found Dollar object
+	 * return: null (if not found) or non null BSTNode containing found Dollar object
 	 */
 	public BSTNode recurseSearch(BSTNode curr, Dollar key)
 	{
@@ -341,9 +363,11 @@ public class BST {
 	}
 
 	/**
-	 * returns string of all 4 traversals of the tree
+	 * returns string of all 4 traversals of the tree by creating
+	 * queues for all 4 traversals, then concatenating a string version
+	 * of each queue
 	 * pre: none
-	 * post: none
+	 * post: string is used in lab4main to print the tree
 	 * return: string that contains all 4 traversals of the tree
 	 */
 	public String print()
@@ -368,7 +392,7 @@ public class BST {
 	 * returns number of nodes in tree
 	 * pre: none
 	 * post: none
-	 * return: number of nodes in tree
+	 * return: int number of nodes in tree
 	 */
 	public int count()
 	{

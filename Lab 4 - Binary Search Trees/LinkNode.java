@@ -2,8 +2,8 @@
 LinkNode - a class that represents one element of the SinglyLinkedlist ADT
 Kanchan Kaushik and Roopa Srinivas
 F23 CIS D022C 09Y, 10Y Data Abstract & Structures
-Purpose: To demonstrate knowledge of ADT's using the above three mentioned 
-ADT's, Lists, Stacks, and Queues, on Currency and Dollar classes
+Purpose: To demonstrate knowledge of ADTs using the Binary Search 
+Tree on Currency and Dollar classes
 */
 public class LinkNode {
     private Currency data; // Field var represents the data stored by this node

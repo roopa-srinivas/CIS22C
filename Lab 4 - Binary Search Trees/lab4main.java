@@ -1,3 +1,11 @@
+/*
+lab4main - a class that tests and runs binary tree ADT classes, BST and BSTNode, 
+which help simulate a tree of values that can be traversed in 4 ways
+Kanchan Kaushik and Roopa Srinivas
+F23 CIS D022C 09Y, 10Y Data Abstract & Structures
+Purpose: To demonstrate knowledge of ADTs using the Binary Search 
+Tree on Currency and Dollar classes
+*/
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -113,6 +121,12 @@ public class lab4main {
         
     }
 
+    /* Method that prints out the list of commands the user can use to 
+     * interact with the binary tree and an example of how to put input
+     * pre: none
+     * post: command help printed to terminal window
+     * return: none
+     */
     public static void userCommandHelp()
     {
         System.out.println("\nUser Command Directory:");
@@ -125,6 +139,11 @@ public class lab4main {
         System.out.println("EX:  a 31.43 - adds a dollar with value $31.43 to the tree\n\n");
     }
 
+    /* Method to add output to the output.txt file
+     * pre: String output (the String to print to text file)
+     * post: output has been added to text file, or if there was an error, it is printed
+     * return: none
+     */
     public static void addToFile(String output) {
         try {
             FileWriter fw = new FileWriter("output.txt", true);
@@ -138,6 +157,11 @@ public class lab4main {
         }
     }
 
+    /* Method to clear the file prior to each run of the program
+     * pre: none
+     * post: none
+     * return: none
+     */
     public static void clearFile() {
         PrintWriter writer;
         try {
@@ -145,7 +169,6 @@ public class lab4main {
             writer.print("");
             writer.close();
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         

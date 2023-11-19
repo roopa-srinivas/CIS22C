@@ -2,7 +2,8 @@
 BSTNode - a class that represents one element of the BST ADT
 Kanchan Kaushik and Roopa Srinivas
 F23 CIS D022C 09Y, 10Y Data Abstract & Structures
-Purpose: To demonstrate knowledge of ADTs using the Binary Search Tree on Currency and Dollar classes
+Purpose: To demonstrate knowledge of ADTs using the Binary Search 
+Tree on Currency and Dollar classes
 */
 public class BSTNode {
     private Dollar data; // the value in this node
