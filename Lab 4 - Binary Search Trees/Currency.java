@@ -4,15 +4,6 @@ Kanchan Kaushik and Roopa Srinivas
 F23 CIS D022C 09Y, 10Y Data Abstract & Structures
 Purpose: To demonstrate knowledge of ADT's using the above three mentioned 
 ADT's, Lists, Stacks, and Queues, on Currency and Dollar classes
-CHANGES MADE FROM LAST TIME:
-- print() method
-- Why? Because we needed a way to obtain the currency as just a string without
-  printing it separately all of the time, in order to concatenate the data of 
-  all elements in a list, so we separated the print method into two methods
-  1. getCurrencyAsString method which returns a string of what would have been 
-     printed in print() in lab2
-  2. print() method which actually prints to terminal window the output of the
-     getCurrencyAsString() method
 */
 
 public abstract class Currency {
