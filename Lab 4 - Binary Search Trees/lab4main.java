@@ -1,7 +1,12 @@
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 public class lab4main {
     public static void main(String[] args) {
-         
+        clearFile();
         Queue money = new Queue();
 
         money.enqueue(new Dollar(57.12));
@@ -31,6 +36,8 @@ public class lab4main {
 
         System.out.print("\nHere is your Binary Search Tree:");
         System.out.println(moneyTree.print());
+        addToFile("Initial: ");
+        addToFile(moneyTree.print());
 
         String input = "";
         Scanner s = new Scanner(System.in);
@@ -44,12 +51,14 @@ public class lab4main {
             {
                 double val = s.nextDouble();
                 Dollar temp = new Dollar(val);
-                if(val<0)
+                if(val<0) {
                     System.out.println("\nThis dollar value is invalid and cannot be added!\n");
-                else if(moneyTree.search(temp) != null)
+                    addToFile("Invalid Input: " + val);
+                }
+                else if(moneyTree.search(temp) != null) {
                     System.out.println("\nThis value already exists in the tree!\n");
-                else
-                {
+                }
+                else {
                     moneyTree.insert(temp);
                     System.out.println ("\nThis value has been added to tree!\n");
                 }
@@ -58,22 +67,29 @@ public class lab4main {
             {
                 double val = s.nextDouble();
                 Dollar temp = new Dollar(val);
-                if(val<0)
+                if(val<0) {
                     System.out.println("\nThis dollar value is invalid and cannot be searched for!\n");
-                else if(moneyTree.search(temp) != null)
+                    addToFile("Invalid Input: " + val);
+                }
+                else if(moneyTree.search(temp) != null) {
                     System.out.println("\nThis value was found in the tree!\n");
-                else
-                    System.out.println ("\nThis value was not found in the tree!\n");
-            }
+                }
+                else {
+                    System.out.println ("\nThis value was not found in the tree!\n");}
+
+                }
             else if (input.equalsIgnoreCase("d"))
             {
                 double val = s.nextDouble();
                 Dollar temp = new Dollar(val);
 
-                if(val<0)
+                if(val<0){
                     System.out.println("\nThis dollar value is invalid and cannot be deleted!\n");
-                else if(moneyTree.search(temp) == null)
+                    addToFile("Invalid Input: " + val);
+                }
+                else if(moneyTree.search(temp) == null) {
                     System.out.println("\nThis value does not exist in the tree and cannot be removed!\n");
+                }
                 else
                 {
                     moneyTree.delete(temp);
@@ -83,11 +99,17 @@ public class lab4main {
             else if (input.equalsIgnoreCase("p"))
             {
                 System.out.println(moneyTree.print());
+                addToFile("----------------------------");
+                addToFile("Print: ");
+                addToFile(moneyTree.print());
             }
-        }while(!input.equalsIgnoreCase("q"));
+        } while(!input.equalsIgnoreCase("q"));
 
         System.out.print("\nHere is your final Binary Search Tree:");
         System.out.println(moneyTree.print());
+        addToFile("----------------------------");
+        addToFile("Final: ");
+        addToFile(moneyTree.print());
         
     }
 
@@ -101,5 +123,31 @@ public class lab4main {
         System.out.println("d (dollar value) - delete a dollar value from tree");
         System.out.println("p - print tree (in all 4 traversal methods)");
         System.out.println("EX:  a 31.43 - adds a dollar with value $31.43 to the tree\n\n");
+    }
+
+    public static void addToFile(String output) {
+        try {
+            FileWriter fw = new FileWriter("output.txt", true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter pw = new PrintWriter(bw);
+            pw.println(output);
+            pw.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+
+    public static void clearFile() {
+        PrintWriter writer;
+        try {
+            writer = new PrintWriter("output.txt");
+            writer.print("");
+            writer.close();
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
     }
 }
