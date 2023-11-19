@@ -64,7 +64,8 @@ public class lab4main {
                     addToFile("Invalid Input: " + val);
                 }
                 else if(moneyTree.search(temp) != null) {
-                    System.out.println("\nThis value already exists in the tree!\n");
+                    System.out.println("\nThis value already exists in the tree and cannot be added!\n");
+                    addToFile("Invalid Input: " + val);
                 }
                 else {
                     moneyTree.insert(temp);
@@ -97,6 +98,7 @@ public class lab4main {
                 }
                 else if(moneyTree.search(temp) == null) {
                     System.out.println("\nThis value does not exist in the tree and cannot be removed!\n");
+                    addToFile("Invalid Input: " + val);
                 }
                 else
                 {
