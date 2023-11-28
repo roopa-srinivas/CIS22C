@@ -14,6 +14,7 @@ public abstract class Currency {
         coinValue = 0;
     }
     public Currency(double value) {
+        value += 0.0001;
         noteValue = (int)value;
         coinValue = (int)(value*100)%100;
     }
