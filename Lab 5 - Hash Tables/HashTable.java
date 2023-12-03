@@ -1,23 +1,18 @@
 public class HashTable {
 
-    private int capacity, numCollisions;
-    private double loadFactor;
-    private int numItems;
-    private Entry[] table;
+    private int capacity;
+    private int numCollisions = 0;
+    private double loadFactor = 0;
+    private int numItems = 0;
+    private Dollar[] table;
 
     public HashTable() {
         capacity = 29;
-        numCollisions= 0;
-        loadFactor = 0;
-        numItems = 0;
-        table = new Entry[29];
+        table = new Dollar[capacity];
     }   
     public HashTable(int initial) {
         capacity = initial;
-        numCollisions= 0;
-        loadFactor = 0;
-        numItems = 0;
-        table = new Entry[capacity];
+        table = new Dollar[capacity];
     }
     
     public int getCapacity() {
@@ -36,16 +31,24 @@ public class HashTable {
     }
 
     public Dollar getDollarAtIndex(int index) {
-        return table[index].getData();
+        // Dollar dollarAtIndex;
+        // try {
+        //     dollarAtIndex = table[index];
+        // } catch (NullPointerException e) {
+        //     dollarAtIndex = null;
+        // }
+        // return dollarAtIndex;
+        return table[index];
     }
     
-    public void setDollarAtIndex(int index, Dollar value)
-    {
-        table[index].setData(value);
+    public void setDollarAtIndex(int index, Dollar value) {
+        table[index].setNoteValue(value.getNoteValue());
+        table[index].setCoinValue(value.getCoinValue());
+        
     }
 
-    public void hash(Dollar value) {
-        return (2*value.getNoteValue() + 3*value.getCoinValue()) % capacity;
+    public int hash(Dollar value) {
+        return (int)(2*value.getNoteValue() + 3*value.getCoinValue()) % capacity;
     }
 
     public void calculateLoadFactor() {
@@ -66,7 +69,7 @@ public class HashTable {
 
         int start = hash(value);
         int bucket = start;
-        while(bucketsProbed<capacity && getDollarAtIndex(bucket)!=0)
+        while(bucketsProbed<capacity && getDollarAtIndex(bucket)!=null)
         {
             if(getDollarAtIndex(bucket)!=null &&
                 getDollarAtIndex(bucket).isEqual(value))
@@ -92,14 +95,14 @@ public class HashTable {
             if(getDollarAtIndex(bucket)==null)
             {
                 setDollarAtIndex(bucket, value);
-                return true;
+                // return true;
             }
             numCollisions++;
             i++;
             bucketsProbed++;
             bucket = quadraticProbe(start, i);
         }
-        return false;
+        // return false;
     }
 
     public int quadraticProbe(int start, int n) {

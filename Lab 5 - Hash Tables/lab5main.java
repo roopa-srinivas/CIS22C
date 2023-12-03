@@ -1,6 +1,11 @@
+import java.util.Scanner;
+
 public class lab5main {
     public static void main(String[] args) {
         HashTable table = new HashTable();
+        Scanner s = new Scanner(System.in);
+        double input;
+        String action = "";
 
         table.addDollar(new Dollar(57.12));
         table.addDollar(new Dollar(23.44));
@@ -22,6 +27,23 @@ public class lab5main {
         table.addDollar(new Dollar(1.00));
         table.addDollar(new Dollar(251.00));
         table.addDollar(new Dollar(151.00));
+
+        System.out.println("Number of Data Items: " + table.getNumItems());
+        System.out.println("Load Factor: " + table.getLoadFactor());
+        System.out.println("Number of Collisions: " + table.getNumCollisions());
+
+        while (!action.equals("end")) {
+            System.out.println("Enter a Dollar value to search for: ");
+            input = s.nextDouble();
+            Dollar dollarToCheck = new Dollar(input);
+            if (table.search(dollarToCheck) == -1){
+                System.out.println("Invalid Data");
+            } else {
+                System.out.println(table.search(dollarToCheck));
+            }
+            System.out.println("Would you like to check for another Dollar value or end the program? Enter \'check\' or \'end\'");
+            action = s.next();
+        }
 
     }
 }
