@@ -4,6 +4,7 @@ Kanchan Kaushik and Roopa Srinivas
 F23 CIS D022C 09Y, 10Y Data Abstract & Structures
 Purpose: To demonstrate knowledge of ADTs using the Binary Search 
 Tree on Currency and Dollar classes
+*** change made: added +0.5 for calculation in coin value to get correct values for printout***
 */
 
 public abstract class Currency {
@@ -15,7 +16,7 @@ public abstract class Currency {
     }
     public Currency(double value) {
         noteValue = (int)value;
-        coinValue = (int)(value*100)%100;
+        coinValue = (int)(value*100+0.5)%100;
     }
     public Currency(Currency newCurrency) {
         noteValue = newCurrency.noteValue;
