@@ -64,8 +64,7 @@ public class HashTable {
         while(bucketsProbed<capacity && getDollarAtIndex(bucket)!=null)
         {
             if(getDollarAtIndex(bucket)!=null &&
-                getDollarAtIndex(bucket).isEqual(value))
-            {
+                getDollarAtIndex(bucket).isEqual(value)) {
                 return bucket;
             }
             i++;

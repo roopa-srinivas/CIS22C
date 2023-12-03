@@ -33,16 +33,21 @@ public class lab5main {
         System.out.println("Number of Collisions: " + table.getNumCollisions());
 
         while (!action.equals("end")) {
+            System.out.println("----------------------------------------------------------------------------------");
+            action = "";
             System.out.println("Enter a Dollar value to search for: ");
             input = s.nextDouble();
             Dollar dollarToCheck = new Dollar(input);
             if (table.search(dollarToCheck) == -1){
                 System.out.println("Invalid Data");
             } else {
-                System.out.println(table.search(dollarToCheck));
+                System.out.println("Index: " + table.search(dollarToCheck));
             }
-            System.out.println("Would you like to check for another Dollar value or end the program? Enter \'check\' or \'end\'");
-            action = s.next();
+            while ((!action.equals("check")) && (!action.equals("end"))) {
+                System.out.println("Would you like to check for another Dollar value or end the program? Enter \'check\' or \'end\'");
+                action = s.next();
+            }
+            
         }
 
     }
