@@ -9,14 +9,14 @@ public class HashTable {
         capacity = 29;
         numCollisions= 0;
         loadFactor = 0;
-        count = 0;
+        numItems = 0;
         table = new Entry[29];
     }   
     public HashTable(int initial) {
         capacity = initial;
         numCollisions= 0;
         loadFactor = 0;
-        count = 0;
+        numItems = 0;
         table = new Entry[capacity];
     }
     
@@ -24,10 +24,11 @@ public class HashTable {
         return capacity;
     }
 
-    public int getEntryCount(){
-        return count;
+    public int getNumItems(){
+        return numItems;
     }
     public double getLoadFactor() {
+        calculateLoadFactor();
         return loadFactor;
     }
     public int getNumCollisions() {
