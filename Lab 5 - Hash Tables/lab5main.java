@@ -1,3 +1,10 @@
+/*
+lab5main - a class that tests and runs HashTable ADT class
+Kanchan Kaushik and Roopa Srinivas
+F23 CIS D022C 09Y, 10Y Data Abstract & Structures
+Purpose: To demonstrate knowledge of ADTs using the HashTable Dollar class
+*/
+
 import java.util.Scanner;
 
 public class lab5main {
