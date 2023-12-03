@@ -1,18 +1,30 @@
 public class HashTable {
 
-    private int capacity;
-    private int numCollisions = 0;
-    private double loadFactor = 0;
-    private int numItems = 0;
-    private Dollar[] table;
+    private int capacity, numCollisions;
+    private double loadFactor;
+    private int numItems;
+    private Entry[] table;
 
     public HashTable() {
         capacity = 29;
-        table = new Dollar[capacity];
+        numCollisions= 0;
+        loadFactor = 0;
+        numItems = 0;
+        table = new Entry[29];
+        initializeTable();
     }   
     public HashTable(int initial) {
         capacity = initial;
-        table = new Dollar[capacity];
+        numCollisions= 0;
+        loadFactor = 0;
+        numItems = 0;
+        table = new Entry[capacity];
+    }
+
+    public void initializeTable()
+    {
+        for(int i = 0; i< table.length; i++)
+            table[i] = new Entry();
     }
     
     public int getCapacity() {
@@ -23,43 +35,23 @@ public class HashTable {
         return numItems;
     }
     public double getLoadFactor() {
-        calculateLoadFactor();
-        return loadFactor;
+        return (double)(numItems)/capacity;
     }
     public int getNumCollisions() {
         return numCollisions;
     }
 
     public Dollar getDollarAtIndex(int index) {
-        // Dollar dollarAtIndex;
-        // try {
-        //     dollarAtIndex = table[index];
-        // } catch (NullPointerException e) {
-        //     dollarAtIndex = null;
-        // }
-        // return dollarAtIndex;
-        return table[index];
+        return table[index].getData();
     }
     
-    public void setDollarAtIndex(int index, Dollar value) {
-        table[index].setNoteValue(value.getNoteValue());
-        table[index].setCoinValue(value.getCoinValue());
-        
+    public void setDollarAtIndex(int index, Dollar value)
+    {
+        table[index].setData(value);
     }
 
     public int hash(Dollar value) {
-        return (int)(2*value.getNoteValue() + 3*value.getCoinValue()) % capacity;
-    }
-
-    public void calculateLoadFactor() {
-        int count = 0;
-        for (int i = 0; i < capacity; i++) {
-            if (getDollarAtIndex(i)!=null) {
-                count++;
-            }
-        }
-        numItems = count;
-        loadFactor = (double)(numItems)/capacity;
+        return (2*value.getNoteValue() + 3*value.getCoinValue()) % capacity;
     }
 
     public int search(Dollar value) 
@@ -95,14 +87,15 @@ public class HashTable {
             if(getDollarAtIndex(bucket)==null)
             {
                 setDollarAtIndex(bucket, value);
-                // return true;
+                numItems++;
+                return;
             }
             numCollisions++;
             i++;
             bucketsProbed++;
             bucket = quadraticProbe(start, i);
         }
-        // return false;
+        return;
     }
 
     public int quadraticProbe(int start, int n) {
