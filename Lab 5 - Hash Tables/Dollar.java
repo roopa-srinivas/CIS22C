@@ -2,8 +2,7 @@
 dollar - a subclass of currency
 Kanchan Kaushik and Roopa Srinivas
 F23 CIS D022C 09Y, 10Y Data Abstract & Structures
-Purpose: To demonstrate knowledge of ADTs using the Binary Search 
-Tree on Currency and Dollar classes
+Purpose: To demonstrate knowledge of ADTs using the HashTable Dollar class
 */
 
 public class Dollar extends Currency{
