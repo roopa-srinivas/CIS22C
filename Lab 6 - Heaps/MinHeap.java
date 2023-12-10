@@ -6,19 +6,16 @@ public class MinHeap extends BST {
     //heap sort --> always remove root node
 
     private BSTNode root;
-    private int size;
 
     public MinHeap() {
         super();
         root = null;
-        size = 0;
     }
 
     @Override
     public void insert(Dollar value) {
         super.insert(value);
         heapifyUp(root, value);
-        size++;
 	}
 
     private void heapifyUp(BSTNode node, Dollar value) {
@@ -62,6 +59,7 @@ public class MinHeap extends BST {
         root = remove(root, value);
     }
 
+    @Override
     public BSTNode remove(BSTNode root, Dollar value) {
         if (root == null) {
             return null;
@@ -78,20 +76,11 @@ public class MinHeap extends BST {
                 return root.getLeftChild();
             }
 
-            root.setData(minValue(root.getRightChild()));
+            root.setData(minNode(root.getRightChild()).getData());
             root.setRightChild(remove(root.getRightChild(), root.getData()));
         }
 
         return root;
-    }
-
-    public Dollar minValue(BSTNode node) {
-        Dollar minValue = node.getData();
-        while (node.getLeftChild() != null) {
-            minValue = node.getLeftChild().getData();
-            node = node.getLeftChild();
-        }
-        return minValue;
     }
 
     @Override
