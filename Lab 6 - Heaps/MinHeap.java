@@ -1,105 +1,124 @@
 public class MinHeap extends BST {
+    private Dollar[] heap;
+    private int capacity;
+    private int currentSize;
 
-    //breadth first traversal
-    //keep track of which level you are at so you can know how many nodes to check (need to check all nodes in last level)
-    //remove --> remove node, replace with right most node in sub-tree, then re-heap down, then move very last node to empty spot, then add next data into very end
-    //heap sort --> always remove root node
-
-    private BSTNode root;
-
-    public MinHeap() {
-        super();
-        root = null;
+    public MinHeap(int n) {
+        capacity = n;
+        heap = new Dollar[capacity];
+        currentSize = 0;
+        for (int i = 0; i < capacity; i++) {
+            heap[i] = new Dollar();
+        }
     }
 
-    @Override
-    public void insert(Dollar value) {
-        super.insert(value);
-        heapifyUp(root, value);
-	}
+    private void swap(Dollar[] arr, int a, int b) {
+        Dollar temp = arr[a];
+        arr[a] = arr[b];
+        arr[b] = temp;
+    }
 
-    private void heapifyUp(BSTNode node, Dollar value) {
-        if (node == null) {
+    // private void swap(BSTNode value1, BSTNode value2) {
+    //     BSTNode temp = new BSTNode(value1.getData());
+    //     value1.setData(value2.getData());
+    //     value2.setData(temp.getData());
+    // }
+
+    private int getParentIndex(int key) {
+        return (key-1)/2;
+    }
+
+    private int getLeftChildIndex(int key) {
+        return 2*key+1;
+    }
+
+    private int getRightChildIndex(int key) {
+        return 2*key+2;
+    }
+
+    public void insert(Dollar node) {
+        if(currentSize == capacity) {
+            //resize
             return;
         }
 
-        BSTNode parent = findParent(root, value);
-        while (parent != null && (!node.getData().isGreater(parent.getData()))) {
-            Dollar temp = node.getData();
-            node.setData(parent.getData());
-            parent.setData(temp);
+        int i = currentSize;
+        heap[i] = node;
+        currentSize++;
 
-            node = parent;
-            parent = findParent(root, node.getData());
+        while (i != 0 && (!heap[i].isGreater(heap[getParentIndex(i)]))) {
+            swap(heap, i, getParentIndex(i));
+            i = getParentIndex(i);
         }
     }
 
-    private BSTNode findParent(BSTNode root, Dollar value) {
-        if (root == null || root.getData() == value) {
+    public void decreaseKey(int index, Dollar value) {
+        heap[index] = value;
+
+        while (index != 0 && (!heap[index].isGreater(heap[getParentIndex(index)]))){
+            swap(heap, index, getParentIndex(index));
+            index = getParentIndex(index);
+        }
+    }
+
+    public Dollar getMinDollar() {
+        return heap[0];
+    }
+
+    public Dollar extractMinDollar() {
+        if (currentSize <= 0) {
             return null;
         }
 
-        BSTNode parent = null;
-        BSTNode current = root;
-
-        while (current != null && current.getData() != value) {
-            parent = current;
-            if (!value.isGreater(current.getData())) {
-                current = current.getLeftChild();
-            } else {
-                current = current.getRightChild();
-            }
+        if(currentSize == 1) {
+            currentSize--;
+            return heap[0];
         }
 
-        return parent;
-    }
-
-    @Override
-    public void delete(Dollar value) {
-        root = remove(root, value);
-    }
-
-    @Override
-    public BSTNode remove(BSTNode root, Dollar value) {
-        if (root == null) {
-            return null;
-        }
-
-        if (!value.isGreater(root.getData())) {
-            root.setLeftChild(remove(root.getLeftChild(), value));
-        } else if (value.isGreater(root.getData())) {
-            root.setRightChild(remove(root.getRightChild(), value));
-        } else {
-            if (root.getLeftChild() == null) {
-                return root.getRightChild();
-            } else if (root.getRightChild() == null) {
-                return root.getLeftChild();
-            }
-
-            root.setData(minNode(root.getRightChild()).getData());
-            root.setRightChild(remove(root.getRightChild(), root.getData()));
-        }
-
+        Dollar root = heap[0];
+        heap[0] = heap[currentSize-1];
+        currentSize--;
+        minHeapify(0);
         return root;
     }
 
-    @Override
-    public BSTNode search(Dollar key) {
-        return recurseSearch(root, key);
+    public void delete(int index, Dollar value) {
+        decreaseKey(index, value);
+        extractMinDollar();
     }
 
-    public BSTNode recursiveSearch (BSTNode root, Dollar key) {
-        if (root == null) {
-            return null;
+    private void minHeapify(int index) {
+        int leftChildIndex = getLeftChildIndex(index);
+        int rightChildIndex = getRightChildIndex(index);
+
+        int smallest = index;
+        if (leftChildIndex < currentSize && (!heap[leftChildIndex].isGreater(heap[smallest]))) {
+            smallest = leftChildIndex;
+        }
+        if (rightChildIndex < currentSize && (!heap[rightChildIndex].isGreater(heap[smallest]))) {
+            smallest = rightChildIndex;
         }
 
-        if (key == root.getData()) {
-            return root;
-        } else if (!key.isGreater(root.getData())) {
-            return recurseSearch(root.getLeftChild(), key);
+        if (smallest != index) {
+            swap(heap, index, smallest);
+            minHeapify(smallest);
+        }
+    }
+
+    public void increaseKey(int index, Dollar value) {
+        heap[index] = value;
+        minHeapify(index);
+    }
+
+    public void changeValue(int index, Dollar value) {
+        if (heap[index] == value) {
+            return;
+        }
+
+        if (heap[index].isGreater(value)) {
+            decreaseKey(index, value);
         } else {
-            return recurseSearch(root.getRightChild(), key);
+            increaseKey(index, value);
         }
     }
-    
 }

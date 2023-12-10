@@ -1,6 +1,7 @@
 public class lab6main {
     public static void main(String[] args) {
         Queue money = new Queue();
+        MinHeap heap = new MinHeap(20);
         
         money.enqueue(new Dollar(57.12));
         money.enqueue(new Dollar(23.44));
@@ -12,6 +13,14 @@ public class lab6main {
         money.enqueue(new Dollar(18.36));
         money.enqueue(new Dollar(543.21));
         money.enqueue(new Dollar(20.21));
+        
+        while (money.countCurrency()>0) {
+            heap.insert(new Dollar(money.dequeue()));
+        }
+        System.out.println("First 10 dollar values: ");
+        System.out.println(heap.print());
+        System.out.println("-----------------------------");
+
         money.enqueue(new Dollar(345.67));
         money.enqueue(new Dollar(36.18));
         money.enqueue(new Dollar(48.48));
@@ -23,10 +32,12 @@ public class lab6main {
         money.enqueue(new Dollar(251.00));
         money.enqueue(new Dollar(151.00));
 
-        MinHeap heap = new MinHeap();
         while (money.countCurrency()>0) {
             heap.insert(new Dollar(money.dequeue()));
         }
+        System.out.println("All dollar values: ");
+        System.out.println(heap.print());
+        System.out.println("-----------------------------");
 
     }
 }

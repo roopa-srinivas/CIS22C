@@ -237,7 +237,7 @@ public class BST {
 	 */
 	public void recurseInorder(BSTNode curr, Queue inorderVals)
 	{
-		if(curr.getLeftChild()!= null)
+		if(curr.getLeftChild() != null)
 			recurseInorder(curr.getLeftChild(), inorderVals);
 		
 		inorderVals.enqueue(curr.getData());
