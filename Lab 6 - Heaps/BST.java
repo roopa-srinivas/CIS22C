@@ -14,6 +14,12 @@ public class BST {
 	{
 		root = null;
 	}
+
+	public void setRoot(Dollar value)
+	{
+		BSTNode toAdd = new BSTNode(value);
+		root = toAdd;
+	}
 	/**
 	 * Add a node to the tree by calling a recursive 
 	 * method to traverse the tree and appropriately add the node
