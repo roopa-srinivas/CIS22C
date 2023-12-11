@@ -81,17 +81,17 @@ public class MinHeap extends BST {
     //     arr[b] = temp;
     // }
 
-    // private int getParentIndex(int key) {
-    //     return (key-1)/2;
-    // }
+    private int getParentIndex(int key) {
+        return (key-1)/2;
+    }
 
-    // private int getLeftChildIndex(int key) {
-    //     return 2*key+1;
-    // }
+    private int getLeftChildIndex(int key) {
+        return 2*key+1;
+    }
 
-    // private int getRightChildIndex(int key) {
-    //     return 2*key+2;
-    // }
+    private int getRightChildIndex(int key) {
+        return 2*key+2;
+    }
 
     // public void insert(BSTNode node) {
     //     if(currentSize == capacity) {
