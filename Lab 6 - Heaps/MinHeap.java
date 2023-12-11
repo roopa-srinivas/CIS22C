@@ -12,74 +12,51 @@ public class MinHeap extends BST {
         }
     }
 
-    
-
-    public boolean insert(BSTNode[] heap, int lastNodeIndex, BSTNode newNode) {
-        if (currentSize == capacity) {
-            return false;
+    public void insert(BSTNode newNode) {
+        if (currentSize >= capacity) {
+            return;
         }
-        lastNodeIndex++;
-        heap[lastNodeIndex] = newNode;
-        reheapUp (heap, lastNodeIndex);
-        return true;
+        heap[currentSize] = newNode;
+        int currentIndex = currentSize;
+        while (heap[getParentIndex(currentIndex)].getData().isGreater(heap[currentIndex].getData())) {
+            swap(currentIndex, getParentIndex(currentIndex));
+        }
+        currentSize++;
     }
 
-    public void reheapUp(BSTNode[] heap, int newNodeIndex) {
-        if (newNodeIndex != 0) {
-            int parentIndex = getParentIndex(newNodeIndex);
-            //set parent to parent of newNode
-            if (heap[newNodeIndex].getData().isGreater(heap[parentIndex].getData())){
-                BSTNode temp = heap[newNodeIndex];
-                heap[newNodeIndex] = heap[parentIndex];
-                heap[parentIndex] = temp;
-                reheapUp(heap, parentIndex);
+    private void swap(int index1, int index2) {
+        BSTNode temp = heap[index1];
+        heap[index1] = heap[index2];
+        heap[index2] = temp;
+    }
+
+    public BSTNode remove() {
+        BSTNode removed = heap[0];
+        heap[0] = heap[--currentSize];
+        minHeapify(0);
+        return removed;
+    }
+
+    private void minHeapify(int key) {
+        if (!isLeaf(key)) {
+            if (heap[key].getData().isGreater(heap[getLeftChildIndex(key)].getData()) ||
+                heap[key].getData().isGreater(heap[getRightChildIndex(key)].getData())) {
+                    if (heap[getLeftChildIndex(key)].getData().isGreater(heap[getRightChildIndex(key)].getData())) {
+                        swap(key, getLeftChildIndex(key));
+                        minHeapify(getLeftChildIndex(key));
+                    } else {
+                        swap(key, getRightChildIndex(key));
+                        minHeapify(getRightChildIndex(key));
+                    }
             }
         }
     }
 
-    // need to complete
-    public void reheapDown(BSTNode[] heap, int rootIndex, int lastNodeIndex) {
-        int leftKey = 0;
-        int rightKey = 0;
-        if (currentSize >= 2) {
-            leftKey = 1; //need to fix --> should be height of left subtree -- i think?
-            if (currentSize >= 3) {
-                rightKey = 2; //need to fix --> should be height of right subtree -- i think?
-            } else {
-                rightKey = -1;
-            }
-
-            if (leftKey > rightKey) {
-
-            }
+    public void minHeap() {
+        for (int i = (currentSize-1)/2; i >= 1; i--) {
+            minHeapify(i);
         }
     }
-
-    public void buildHeap (BSTNode[] heap, int size) {
-        for (int i = 1; i < size; i++) {
-            reheapUp(heap, i);
-        }
-    }
-
-    public boolean deleteHeap (BSTNode[] heap, int lastNodeIndex, BSTNode dataOut) {
-        if (currentSize == 0) {
-            return false;
-        }
-        dataOut = heap[0];
-        heap[0] = heap[lastNodeIndex];
-        lastNodeIndex--;
-        reheapDown(heap, 0, lastNodeIndex);
-        return true;
-    }
-
-
-
-
-    // private void swap(BSTNode[] arr, int a, int b) {
-    //     BSTNode temp = arr[a];
-    //     arr[a] = arr[b];
-    //     arr[b] = temp;
-    // }
 
     private int getParentIndex(int key) {
         return (key-1)/2;
@@ -92,6 +69,80 @@ public class MinHeap extends BST {
     private int getRightChildIndex(int key) {
         return 2*key+2;
     }
+
+    private boolean isLeaf(int key) {
+        if (getRightChildIndex(key) >= capacity || getLeftChildIndex(key) >= capacity) {
+            return true;
+        }
+        return false;
+    }
+
+
+    
+
+    // public boolean insert(BSTNode[] heap, int lastNodeIndex, BSTNode newNode) {
+    //     if (currentSize == capacity) {
+    //         return false;
+    //     }
+    //     lastNodeIndex++;
+    //     heap[lastNodeIndex] = newNode;
+    //     reheapUp(heap, lastNodeIndex);
+    //     return true;
+    // }
+
+    // public void reheapUp(BSTNode[] heap, int newNodeIndex) {
+    //     if (newNodeIndex != 0) {
+    //         int parentIndex = getParentIndex(newNodeIndex);
+    //         if (heap[newNodeIndex].getData().isGreater(heap[parentIndex].getData())){
+    //             BSTNode temp = heap[newNodeIndex];
+    //             heap[newNodeIndex] = heap[parentIndex];
+    //             heap[parentIndex] = temp;
+    //             reheapUp(heap, parentIndex);
+    //         }
+    //     }
+    // }
+
+    // // need to complete
+    // public void reheapDown(BSTNode[] heap, int rootIndex, int lastNodeIndex) {
+    //     int leftKey = 0;
+    //     int rightKey = 0;
+    //     if (currentSize >= 2) {
+    //         leftKey = 1; //need to fix --> should be height of left subtree -- i think?
+    //         if (currentSize >= 3) {
+    //             rightKey = 2; //need to fix --> should be height of right subtree -- i think?
+    //         } else {
+    //             rightKey = -1;
+    //         }
+
+    //         if (leftKey > rightKey) {
+
+    //         }
+    //     }
+    // }
+
+    // public void buildHeap (BSTNode[] heap, int size) {
+    //     for (int i = 1; i < size; i++) {
+    //         reheapUp(heap, i);
+    //     }
+    // }
+
+    // public boolean deleteHeap (BSTNode[] heap, int lastNodeIndex, BSTNode dataOut) {
+    //     if (currentSize == 0) {
+    //         return false;
+    //     }
+    //     dataOut = heap[0];
+    //     heap[0] = heap[lastNodeIndex];
+    //     lastNodeIndex--;
+    //     reheapDown(heap, 0, lastNodeIndex);
+    //     return true;
+    // }
+
+
+
+
+    
+
+    
 
     // public void insert(BSTNode node) {
     //     if(currentSize == capacity) {
